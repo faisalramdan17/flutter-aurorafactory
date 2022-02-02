@@ -1,9 +1,10 @@
 import 'package:aurorafactory/core.dart';
 import 'package:fade_shimmer/fade_shimmer.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class FileInfoCard extends StatelessWidget {
-  const FileInfoCard({
+class TopTokenInfoCard extends StatelessWidget {
+  const TopTokenInfoCard({
     Key? key,
     required this.token,
   }) : super(key: key);
@@ -47,8 +48,9 @@ class FileInfoCard extends StatelessWidget {
                   style: TextButton.styleFrom(
                     minimumSize: const Size(30, 30),
                   ),
-                  onPressed: () {},
-                  child: const Icon(Icons.more_vert, color: Colors.white54),
+                  onPressed: () => launch(ApiString.explorerURL.testnet +
+                      "/token/${token.contractAddress}"),
+                  child: const Icon(Icons.open_in_new, color: Colors.white54),
                 ),
               )
             ],
@@ -87,8 +89,8 @@ class FileInfoCard extends StatelessWidget {
   }
 }
 
-class ShimmerFileInfoCard extends StatelessWidget {
-  const ShimmerFileInfoCard({Key? key}) : super(key: key);
+class ShimmerTopTokenInfoCard extends StatelessWidget {
+  const ShimmerTopTokenInfoCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

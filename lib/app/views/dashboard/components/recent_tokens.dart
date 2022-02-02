@@ -3,6 +3,7 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:fade_shimmer/fade_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RecentTokens extends GetView<TokenController> {
   const RecentTokens({
@@ -50,7 +51,7 @@ class RecentTokens extends GetView<TokenController> {
                   minWidth: 600,
                   columns: columns,
                   rows: state!.result
-                      .map<DataRow>((e) => recentFileDataRow(e))
+                      .map<DataRow>((e) => recentTokenDataRow(e))
                       .toList(),
                 );
               },
@@ -68,9 +69,10 @@ class RecentTokens extends GetView<TokenController> {
   }
 }
 
-DataRow recentFileDataRow(Token fileInfo) {
+DataRow recentTokenDataRow(Token token) {
   return DataRow2(
     onTap: () {
+      launch(ApiString.explorerURL.testnet + "/token/${token.contractAddress}");
       //Get.rootDelegate.toNamed('/home/country');
       // Get.rootDelegate
       //     .toNamed('/home/country/details?id=$index');
@@ -81,24 +83,24 @@ DataRow recentFileDataRow(Token fileInfo) {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             XInitialTextIcon(
-              text: fileInfo.tokenName,
+              text: token.tokenName,
               fontSize: 12.5,
             ),
             Expanded(
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                child: Text(fileInfo.tokenName ?? "-"),
+                child: Text(token.tokenName ?? "-"),
               ),
             ),
           ],
         ),
       ),
-      DataCell(Center(child: Text(fileInfo.tokenSymbol ?? "-"))),
-      DataCell(Center(child: Text(fileInfo.tokenDecimal.toString()))),
+      DataCell(Center(child: Text(token.tokenSymbol ?? "-"))),
+      DataCell(Center(child: Text(token.tokenDecimal.toString()))),
       DataCell(Center(
-        child: Text(XConverter.numberSupply(
-            fileInfo.tokenSupply, fileInfo.tokenDecimal)),
+        child: Text(
+            XConverter.numberSupply(token.tokenSupply, token.tokenDecimal)),
       )),
     ],
   );

@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:js' as js;
-
 import 'package:url_launcher/url_launcher.dart';
 
 class SideMenu extends StatelessWidget {
@@ -63,7 +61,7 @@ class SideMenu extends StatelessWidget {
               // Get.rootDelegate
               //     .toNamed('/home/country/details?id=$index');
 
-              // Navigator.of(context).pop();
+              Navigator.of(context).pop();
             },
           ),
           DrawerListTile(

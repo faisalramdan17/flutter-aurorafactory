@@ -1,7 +1,7 @@
 import 'package:aurorafactory/core.dart';
 import 'package:flutter/material.dart';
 import 'components/header.dart';
-import 'components/my_files.dart';
+import 'components/top_token.dart';
 import 'components/recent_tokens.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -23,7 +23,7 @@ class DashboardScreen extends StatelessWidget {
                   flex: 5,
                   child: Column(
                     children: [
-                      const MyFiles(),
+                      const TopToken(),
                       const SizedBox(height: kDefaultPadding),
                       const RecentTokens(),
                       if (XResponsive.isMobile(context))

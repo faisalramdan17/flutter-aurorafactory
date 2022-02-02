@@ -13,8 +13,6 @@ export 'shared/widgets/initial_text_icon.dart';
 
 // Models Directories
 export 'models/token.dart';
-export 'models/my_files.dart';
-export 'models/recent_file.dart';
 
 // Api Directories
 export 'api/token/token_provider.dart';

@@ -1,10 +1,10 @@
 import 'package:aurorafactory/core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'file_info_card.dart';
+import 'top_token_info_card.dart';
 
-class MyFiles extends StatelessWidget {
-  const MyFiles({
+class TopToken extends StatelessWidget {
+  const TopToken({
     Key? key,
   }) : super(key: key);
 
@@ -48,12 +48,12 @@ class MyFiles extends StatelessWidget {
         ),
         const SizedBox(height: kDefaultPadding),
         XResponsive(
-          mobile: FileInfoCardGridView(
+          mobile: TopTokenInfoCardGridView(
             crossAxisCount: _size.width < 650 ? 2 : 4,
             childAspectRatio: _size.width < 650 ? 1.3 : 1,
           ),
-          tablet: const FileInfoCardGridView(),
-          desktop: FileInfoCardGridView(
+          tablet: const TopTokenInfoCardGridView(),
+          desktop: TopTokenInfoCardGridView(
             childAspectRatio: _size.width < 1400 ? 1.1 : 1.4,
           ),
         ),
@@ -62,8 +62,8 @@ class MyFiles extends StatelessWidget {
   }
 }
 
-class FileInfoCardGridView extends GetView<TokenController> {
-  const FileInfoCardGridView({
+class TopTokenInfoCardGridView extends GetView<TokenController> {
+  const TopTokenInfoCardGridView({
     Key? key,
     this.crossAxisCount = 4,
     this.childAspectRatio = 1,
@@ -87,7 +87,8 @@ class FileInfoCardGridView extends GetView<TokenController> {
             mainAxisSpacing: kDefaultPadding,
             childAspectRatio: childAspectRatio,
           ),
-          itemBuilder: (context, index) => FileInfoCard(token: result[index]),
+          itemBuilder: (context, index) =>
+              TopTokenInfoCard(token: result[index]),
         );
       },
       onLoading: GridView.builder(
@@ -100,7 +101,7 @@ class FileInfoCardGridView extends GetView<TokenController> {
           mainAxisSpacing: kDefaultPadding,
           childAspectRatio: childAspectRatio,
         ),
-        itemBuilder: (context, index) => const ShimmerFileInfoCard(),
+        itemBuilder: (context, index) => const ShimmerTopTokenInfoCard(),
       ),
     );
   }

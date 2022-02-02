@@ -1,6 +1,6 @@
 # Aurora ERC20 Token Factory
 
-A new Flutter project by using solidity & Aurora network runing in Ethereum chain
+A new Flutter project by using GetX, Solidity & Aurora Network runing in Ethereum Chain.
 
 ## Getting Started
 
