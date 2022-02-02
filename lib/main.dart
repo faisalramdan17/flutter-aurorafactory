@@ -9,10 +9,6 @@ void main() async {
   // await dotenv.load();
   // String foo = dotenv.get('VAR_NAME');
 
-  // debugPrint("ApiString mainnetURL = ${ApiString.explorerURL.mainnet}");
-  // debugPrint("ApiString testnetURL = ${ApiString.networkURL.}");
-  // debugPrint("ApiString testnetURL = ${ExplorerURL().testnet}");
-
   runApp(const MyApp());
 }
 
@@ -25,6 +21,12 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp.router(
       title: 'Aurora ERC20 Factory',
       theme: ThemeData.dark().copyWith(
+        primaryColor: kPrimaryColor,
+        primaryColorDark: kPrimaryColor,
+        primaryColorLight: kPrimaryColor,
+        buttonTheme: const ButtonThemeData().copyWith(
+          buttonColor: kPrimaryColor,
+        ),
         scaffoldBackgroundColor: kBackgroundColor,
         textTheme:
             GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme).apply(
@@ -38,6 +40,8 @@ class MyApp extends StatelessWidget {
         },
       ),
       getPages: AppPages.routes,
+      defaultTransition: Transition.upToDown,
+      // transitionDuration: const Duration(milliseconds: 350),
       debugShowCheckedModeBanner: false,
     );
   }

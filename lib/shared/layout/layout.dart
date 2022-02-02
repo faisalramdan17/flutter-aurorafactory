@@ -1,11 +1,15 @@
-import 'package:aurorafactory/app/views/dashboard/dashboard_screen.dart';
 import 'package:aurorafactory/core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'components/header.dart';
 import 'components/side_menu.dart';
 
-class MainScreen extends GetView<MenuController> {
-  const MainScreen({Key? key}) : super(key: key);
+class XLayout extends GetView<MenuController> {
+  const XLayout({required this.child, this.isSearchable = true, Key? key})
+      : super(key: key);
+
+  final Widget child;
+  final bool isSearchable;
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +28,20 @@ class MainScreen extends GetView<MenuController> {
                 // and it takes 1/6 part of the screen
                 child: const SideMenu(),
               ),
-            const Expanded(
+            Expanded(
               // It takes 5/6 part of the screen
               flex: 5,
-              child: DashboardScreen(),
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(17),
+                child: Column(
+                  children: [
+                    Header(
+                      isSearchable: isSearchable,
+                    ),
+                    child,
+                  ],
+                ),
+              ),
             ),
           ],
         ),

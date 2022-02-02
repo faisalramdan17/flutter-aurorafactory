@@ -3,8 +3,7 @@
 part of 'app_pages.dart';
 
 abstract class Routes {
-  static const HOME = '/';
-  static const TOKENS = '/tokens';
-  static const TOKEN = '/token';
+  static const DASBOARD = '/';
   static const ADD_TOKENS = '/add-token';
+  static const TRANSFER = '/tranfers';
 }

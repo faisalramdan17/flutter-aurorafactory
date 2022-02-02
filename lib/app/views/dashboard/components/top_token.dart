@@ -10,7 +10,6 @@ class TopToken extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size _size = MediaQuery.of(context).size;
     return Column(
       children: [
         Row(
@@ -22,6 +21,7 @@ class TopToken extends StatelessWidget {
             ),
             ElevatedButton.icon(
               style: TextButton.styleFrom(
+                backgroundColor: kPrimaryColor,
                 padding: EdgeInsets.symmetric(
                   horizontal: kDefaultPadding * 1.5,
                   vertical:
@@ -29,32 +29,29 @@ class TopToken extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                debugPrint("=== TEST ===");
-
-                //Get.rootDelegate.toNamed('/home/country');
-                // Get.rootDelegate
-                //     .toNamed('/home/country/details?id=$index');
-
-                // debugPrint(
-                //     "DATA = ${Get.find<TokenController>().state!.result.toString()}");
+                Get.rootDelegate.toNamed(Routes.ADD_TOKENS);
+                //to close the drawer
+                Navigator.of(context).pop();
               },
               icon: const Icon(
                 Icons.add,
                 size: 20,
               ),
-              label: const Text("Create New Token Contract"),
+              label: Text("Create" +
+                  ((XResponsive.isDesktop(context)) ? " New Token " : " ") +
+                  "Contract"),
             ),
           ],
         ),
         const SizedBox(height: kDefaultPadding),
         XResponsive(
           mobile: TopTokenInfoCardGridView(
-            crossAxisCount: _size.width < 650 ? 2 : 4,
-            childAspectRatio: _size.width < 650 ? 1.3 : 1,
+            crossAxisCount: Get.width < 750 ? 2 : 4,
+            childAspectRatio: Get.width < 750 ? 1.3 : 1,
           ),
           tablet: const TopTokenInfoCardGridView(),
           desktop: TopTokenInfoCardGridView(
-            childAspectRatio: _size.width < 1400 ? 1.1 : 1.4,
+            childAspectRatio: Get.width < 1400 ? 1.1 : 1.4,
           ),
         ),
       ],

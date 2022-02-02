@@ -51,44 +51,47 @@ class SideMenu extends StatelessWidget {
             ),
           ),
           DrawerListTile(
+            isSelected:
+                ModalRoute.of(context)!.settings.name == Routes.DASBOARD,
             title: "Dashboard",
             svgSrc: "assets/menu/menu_dashbord.svg",
-            press: () {
-              Get.rootDelegate.toNamed(Routes.HOME);
+            onPressed: () {
+              Get.rootDelegate.toNamed(Routes.DASBOARD);
               //to close the drawer
-
-              //Get.rootDelegate.toNamed('/home/country');
-              // Get.rootDelegate
-              //     .toNamed('/home/country/details?id=$index');
-
               Navigator.of(context).pop();
             },
           ),
           DrawerListTile(
+            isSelected:
+                ModalRoute.of(context)!.settings.name == Routes.TRANSFER,
             title: "Interact with Token",
             svgSrc: "assets/menu/menu_tran.svg",
-            press: () {
-              Get.rootDelegate.toNamed(Routes.HOME);
+            onPressed: () {
+              Get.rootDelegate.toNamed(Routes.TRANSFER);
+              //to close the drawer
+              Navigator.of(context).pop();
+              // Get.rootDelegate
+              //     .toNamed('/home/country/details?id=$index');
             },
           ),
           DrawerListTile(
             title: "Open Explorer",
             svgSrc: "assets/menu/menu_doc.svg",
-            press: () {
+            onPressed: () {
               launch(ApiString.explorerURL.testnet);
             },
           ),
           DrawerListTile(
             title: "Aurora Website",
             svgSrc: "assets/logo/img.svg",
-            press: () {
+            onPressed: () {
               launch("https://aurora.dev/");
             },
           ),
           DrawerListTile(
             title: "My Youtube",
             svgSrc: "assets/menu/menu_youtube.svg",
-            press: () {
+            onPressed: () {
               launch(
                   "https://www.youtube.com/CodingYourLife?sub_confirmation=1");
             },
@@ -96,35 +99,35 @@ class SideMenu extends StatelessWidget {
           DrawerListTile(
             title: "My LinkedIn",
             svgSrc: "assets/menu/menu_linkedin.svg",
-            press: () {
+            onPressed: () {
               launch("https://www.linkedin.com/in/faisalramdan17");
             },
           ),
           DrawerListTile(
             title: "My Github",
             svgSrc: "assets/menu/menu_github.svg",
-            press: () {
+            onPressed: () {
               launch("https://www.github.com/faisalramdan17");
             },
           ),
           DrawerListTile(
             title: "My Instagram",
             svgSrc: "assets/menu/menu_ig.svg",
-            press: () {
+            onPressed: () {
               launch("https://www.instagram.com/faisalramdan17");
             },
           ),
           DrawerListTile(
             title: "Coding Your Life",
             svgSrc: "assets/menu/menu_coding.svg",
-            press: () {
+            onPressed: () {
               launch("https://www.codingyourlife.id");
             },
           ),
           DrawerListTile(
             title: "Email Me",
             svgSrc: "assets/menu/menu_email.svg",
-            press: () {
+            onPressed: () {
               String? encodeQueryParameters(Map<String, String> params) {
                 return params.entries
                     .map((e) =>
@@ -152,19 +155,22 @@ class SideMenu extends StatelessWidget {
 class DrawerListTile extends StatelessWidget {
   const DrawerListTile({
     Key? key,
-    // For selecting those three line once press "Command+D"
+    this.isSelected = false,
     required this.title,
     required this.svgSrc,
-    required this.press,
+    required this.onPressed,
   }) : super(key: key);
 
+  final bool isSelected;
   final String title, svgSrc;
-  final VoidCallback press;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: press,
+      selected: isSelected,
+      selectedTileColor: Colors.white10,
+      onTap: onPressed,
       horizontalTitleGap: 0.0,
       leading: SvgPicture.asset(
         svgSrc,

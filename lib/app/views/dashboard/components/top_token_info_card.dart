@@ -67,12 +67,14 @@ class TopTokenInfoCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "${token.gasUsed} (Gas Used)",
-                style: Theme.of(context)
-                    .textTheme
-                    .caption!
-                    .copyWith(color: Colors.white70),
+              Expanded(
+                child: Text(
+                  "${token.gasUsed} (Gas Used)",
+                  style: Theme.of(context)
+                      .textTheme
+                      .caption!
+                      .copyWith(color: Colors.white70),
+                ),
               ),
               Text(
                 token.gas!,
@@ -151,19 +153,26 @@ class ShimmerTopTokenInfoCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              FadeShimmer(
-                height: 15,
-                width: 70,
-                radius: 6,
-                highlightColor: kShimmerHighlightColor,
-                baseColor: kShimmerBaseColor,
+              Expanded(
+                child: FadeShimmer(
+                  height: 15,
+                  width: 60,
+                  radius: 6,
+                  highlightColor: kShimmerHighlightColor,
+                  baseColor: kShimmerBaseColor,
+                ),
               ),
-              FadeShimmer(
-                height: 15,
-                width: 100,
-                radius: 6,
-                highlightColor: kShimmerHighlightColor,
-                baseColor: kShimmerBaseColor,
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: FadeShimmer(
+                    height: 15,
+                    width: 90,
+                    radius: 6,
+                    highlightColor: kShimmerHighlightColor,
+                    baseColor: kShimmerBaseColor,
+                  ),
+                ),
               ),
             ],
           )

@@ -5,33 +5,39 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 
 class Header extends GetView<MenuController> {
   const Header({
+    this.isSearchable = true,
     Key? key,
   }) : super(key: key);
 
+  final bool isSearchable;
+
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        if (!XResponsive.isDesktop(context))
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: IconButton(
-              icon: const Icon(
-                Icons.menu,
-                size: 27,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 17),
+      child: Row(
+        children: [
+          if (!XResponsive.isDesktop(context))
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: IconButton(
+                icon: const Icon(
+                  Icons.menu,
+                  size: 27,
+                ),
+                onPressed: controller.controlMenu,
               ),
-              onPressed: controller.controlMenu,
             ),
-          ),
-        if (!XResponsive.isMobile(context))
-          Text(
-            "Dashboard",
-            style: Theme.of(context).textTheme.headline6,
-          ),
-        if (!XResponsive.isMobile(context))
-          Spacer(flex: XResponsive.isDesktop(context) ? 2 : 1),
-        const Expanded(child: SearchField()),
-      ],
+          if (!XResponsive.isMobile(context))
+            Text(
+              "Dashboard",
+              style: Theme.of(context).textTheme.headline6,
+            ),
+          if (!XResponsive.isMobile(context))
+            Spacer(flex: XResponsive.isDesktop(context) ? 2 : 1),
+          if (isSearchable) const Expanded(child: SearchField()),
+        ],
+      ),
     );
   }
 }

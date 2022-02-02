@@ -10,6 +10,7 @@ export 'shared/utils/helper.dart';
 export 'shared/widgets/progress_line.dart';
 export 'shared/widgets/responsive.dart';
 export 'shared/widgets/initial_text_icon.dart';
+export 'shared/layout/layout.dart';
 
 // Models Directories
 export 'models/token.dart';
@@ -26,4 +27,5 @@ export 'app/controllers/token_controller.dart';
 export 'app/controllers/menu_controller.dart';
 
 // Views Directories
-// export 'app/views/home_view.dart';
+export 'app/views/dashboard/dashboard_view.dart';
+export 'app/views/token/add_token_view.dart';
