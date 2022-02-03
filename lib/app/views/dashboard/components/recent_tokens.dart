@@ -50,7 +50,7 @@ class RecentTokens extends GetView<TokenController> {
                   columnSpacing: kDefaultPadding,
                   minWidth: 600,
                   columns: columns,
-                  rows: state!.result
+                  rows: state!.tokens
                       .map<DataRow>((e) => recentTokenDataRow(e))
                       .toList(),
                 );
@@ -99,8 +99,8 @@ DataRow recentTokenDataRow(Token token) {
       DataCell(Center(child: Text(token.tokenSymbol ?? "-"))),
       DataCell(Center(child: Text(token.tokenDecimal.toString()))),
       DataCell(Center(
-        child: Text(
-            XConverter.numberSupply(token.tokenSupply, token.tokenDecimal)),
+        child: Text(XConverter.numberSupply(token.tokenSupply,
+            decimal: token.tokenDecimal)),
       )),
     ],
   );

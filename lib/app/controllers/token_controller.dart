@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 
 class TokenController extends SuperController<ResponseToken> {
   TokenController({required this.tokenRepository});
-
-  final ITokenRepository tokenRepository;
+  static TokenController to = Get.find();
+  ITokenRepository tokenRepository;
 
   @override
   void onInit() async {
@@ -14,22 +14,18 @@ class TokenController extends SuperController<ResponseToken> {
     append(() => tokenRepository.getTokens);
   }
 
-  Token getTokenById(String id) {
-    final index = int.tryParse(id);
-    if (index != null) {
-      return state!.result[index];
-    }
-
-    return state!.result.first;
-  }
-
   List<Token> getBigestSupply() {
     List<Token> result = [];
-    for (var token in state!.result) {
+    for (var token in state!.tokens) {
       result.add(token);
     }
     result.sort((b, a) => a.tokenSupply.compareTo(b.tokenSupply));
     return result;
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
   }
 
   @override

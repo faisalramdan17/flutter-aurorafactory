@@ -34,19 +34,29 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
+  # The google_fonts package for Flutter allows you to easily use any of the thousands of fonts available from fonts.google.com in your Flutter app.
+  google_fonts: ^2.2.0
+
+  # Draw SVG (and some Android VectorDrawable (XML)) files on a Flutter Widget.
+  flutter_svg: ^1.0.3
+
+  # A fade shimmer library to implement loading like latest facebook loading effect.
+  fade_shimmer: ^2.0.1
+
+  # In-place substitute for Flutter's stock DataTable and PaginatedDataTable widgets with fixed header/sticky top row and other useful features missing in the originals. 
+  # DataTable2 and PaginatedDataTable2 widgets are based on the sources of Flutter's originals, mimic the API and provide seamless integration.
+  data_table_2: ^2.2.0
+
   # A dart library that connects to interact with the Ethereum blockchain. 
   # It connects to an Ethereum node to send transactions, interact with smart contracts and much more!
   web3dart: ^2.3.3
 
-  # The web_socket_channel package provides StreamChannel wrappers for WebSocket connections. 
-  # It provides a cross-platform WebSocketChannel API, a cross-platform implementation of 
-  # that API that communicates over an underlying StreamChannel, an implementation that wraps dart:io's WebSocket class, 
-  # and a similar implementation that wraps dart:html's.
+  # The web_socket_channel package provides StreamChannel wrappers for WebSocket connections. It provides a cross-platform WebSocketChannel API, a cross-platform implementation of 
+  # that API that communicates over an underlying StreamChannel, an implementation that wraps dart:io's WebSocket class, and a similar implementation that wraps dart:html's.
   web_socket_channel: ^2.1.0
 
-  # A composable, Future-based library for making HTTP requests.
-  # This package contains a set of high-level functions and classes that make it easy to consume HTTP resources. 
-  # It's multi-platform, and supports mobile, desktop, and the browser.
+  # A composable, Future-based library for making HTTP requests. This package contains a set of high-level functions 
+  # and classes that make it easy to consume HTTP resources. It's multi-platform, and supports mobile, desktop, and the browser.
   http: ^0.13.4
 
   # GetX is an extra-light and powerful solution for Flutter. 
@@ -57,18 +67,14 @@ dependencies:
   # date/number formatting and parsing, and bidirectional text.
   intl: ^0.17.0
 
-  fade_shimmer: ^2.0.1
+  # A straightforward flutter form field validator that provides common validation options.
+  form_field_validator: ^1.1.0
+
+  # A Flutter plugin for launching a URL. Supports iOS, Android, web, Windows, macOS, and Linux.
   url_launcher: ^6.0.18
 
   # Load configuration at runtime from a .env file which can be used throughout the application.
   flutter_dotenv: ^5.0.2
-
-
-  google_fonts: ^2.1.0
-  flutter_svg: ^0.22.0
-  fl_chart: ^0.36.1
-  # provider: ^5.0.0
-  data_table_2: ^2.2.0
 
 dev_dependencies:
   flutter_test:

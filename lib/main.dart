@@ -34,14 +34,10 @@ class MyApp extends StatelessWidget {
         ),
         canvasColor: kSecondaryColor,
       ),
-      initialBinding: BindingsBuilder(
-        () {
-          // Get.put(AuthService());
-        },
-      ),
       getPages: AppPages.routes,
-      defaultTransition: Transition.upToDown,
-      // transitionDuration: const Duration(milliseconds: 350),
+      initialBinding: InitialBinding(),
+      defaultTransition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 500),
       debugShowCheckedModeBanner: false,
     );
   }

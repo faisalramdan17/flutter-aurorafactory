@@ -29,28 +29,27 @@ class TopTokenInfoCard extends StatelessWidget {
             children: [
               XInitialTextIcon(
                 text: token.tokenName,
-                size: 40,
+                size: XResponsive.isDesktop(context) ? 40 : 35,
                 color: randomColor,
                 colorBackground: randomColor.withOpacity(0.3),
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(12.0),
                   child: Text(
-                    XConverter.numberSupply(
-                        token.tokenSupply, token.tokenDecimal),
+                    XConverter.numberSupply(token.tokenSupply,
+                        decimal: token.tokenDecimal, isAbbreviation: true),
                     textAlign: TextAlign.right,
                   ),
                 ),
               ),
-              Center(
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    minimumSize: const Size(30, 30),
-                  ),
-                  onPressed: () => launch(ApiString.explorerURL.testnet +
-                      "/token/${token.contractAddress}"),
-                  child: const Icon(Icons.open_in_new, color: Colors.white54),
+              InkWell(
+                onTap: () => launch(ApiString.explorerURL.testnet +
+                    "/token/${token.contractAddress}"),
+                child: const Icon(
+                  Icons.open_in_new,
+                  color: Colors.blue,
+                  size: 20,
                 ),
               )
             ],
@@ -69,7 +68,8 @@ class TopTokenInfoCard extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  "${token.gasUsed} (Gas Used)",
+                  "${token.gasUsed}" +
+                      (XResponsive.isDesktop(context) ? " (Gas Used)" : ""),
                   style: Theme.of(context)
                       .textTheme
                       .caption!

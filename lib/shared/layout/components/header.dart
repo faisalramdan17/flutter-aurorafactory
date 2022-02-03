@@ -6,10 +6,13 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 class Header extends GetView<MenuController> {
   const Header({
     this.isSearchable = true,
+    this.isShowTitle = true,
+    required this.title,
     Key? key,
   }) : super(key: key);
 
-  final bool isSearchable;
+  final String title;
+  final bool isSearchable, isShowTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +31,9 @@ class Header extends GetView<MenuController> {
                 onPressed: controller.controlMenu,
               ),
             ),
-          if (!XResponsive.isMobile(context))
+          if (isShowTitle)
             Text(
-              "Dashboard",
+              title,
               style: Theme.of(context).textTheme.headline6,
             ),
           if (!XResponsive.isMobile(context))

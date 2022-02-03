@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class MenuController extends GetxController {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  GlobalKey<ScaffoldState> get scaffoldKey => _scaffoldKey;
+  static MenuController to = Get.find();
+  late GlobalKey<ScaffoldState> scaffoldKey;
 
   void controlMenu() {
-    if (!_scaffoldKey.currentState!.isDrawerOpen) {
-      _scaffoldKey.currentState!.openDrawer();
+    if (!scaffoldKey.currentState!.isDrawerOpen) {
+      scaffoldKey.currentState!.openDrawer();
     }
   }
 }

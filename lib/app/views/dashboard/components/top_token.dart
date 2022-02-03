@@ -16,30 +16,21 @@ class TopToken extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Top Bigest Total Supply",
+              "Top Bigest Supply",
               style: Theme.of(context).textTheme.subtitle1,
             ),
-            ElevatedButton.icon(
-              style: TextButton.styleFrom(
-                backgroundColor: kPrimaryColor,
-                padding: EdgeInsets.symmetric(
-                  horizontal: kDefaultPadding * 1.5,
-                  vertical:
-                      kDefaultPadding / (XResponsive.isMobile(context) ? 2 : 1),
-                ),
-              ),
-              onPressed: () {
-                Get.rootDelegate.toNamed(Routes.ADD_TOKENS);
-                //to close the drawer
-                Navigator.of(context).pop();
-              },
-              icon: const Icon(
-                Icons.add,
-                size: 20,
-              ),
+            XActionButton(
               label: Text("Create" +
                   ((XResponsive.isDesktop(context)) ? " New Token " : " ") +
                   "Contract"),
+              onPressed: () {
+                // Navigator.of(context).pushNamed(Routes.ADD_TOKENS);
+                Get.rootDelegate.toNamed(Routes.ADD_TOKENS);
+                // Get.toNamed(Routes.DASBOARD);
+                //to close the drawer
+                Navigator.of(context).pop();
+              },
+              icon: Icons.add,
             ),
           ],
         ),

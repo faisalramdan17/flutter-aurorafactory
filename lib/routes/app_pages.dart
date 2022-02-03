@@ -9,19 +9,29 @@ class AppPages {
 
   static final routes = [
     GetPage(
-      name: Routes.DASBOARD,
-      page: () => const DashboardView(),
-      binding: MainBinding(),
-      children: [
-        GetPage(
-          name: Routes.ADD_TOKENS,
-          page: () => const AddTokenView(),
-        ),
-        // GetPage(
-        //   name: Routes.TOKEN,
-        //   page: () => DetailsView(),
-        // ),
-      ],
-    ),
+        name: Routes.DASBOARD,
+        page: () => const DashboardView(),
+        binding: TokenBinding(),
+        // participatesInRootNavigator: true,
+        // preventDuplicates: true,
+        children: [
+          GetPage(
+            name: Routes.ADD_TOKENS,
+            page: () => const AddTokenView(),
+            binding: BindingsBuilder(() {
+              Get.lazyPut(() => AddTokenController());
+            }),
+            bindings: [TokenBinding()],
+          ),
+          GetPage(
+            name: Routes.INTERACT_TOKEN,
+            page: () => const InteractTokenView(),
+            binding: BindingsBuilder(() {
+              Get.lazyPut(() => IntractTokenController());
+              // Get.put(IntractTokenController());
+            }),
+            bindings: [TokenBinding()],
+          ),
+        ]),
   ];
 }

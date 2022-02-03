@@ -7,12 +7,12 @@ import 'dart:convert';
 class ResponseToken {
   ResponseToken({
     required this.message,
-    required this.result,
+    required this.tokens,
     required this.status,
   });
 
   String message;
-  List<Token> result;
+  List<Token> tokens;
   String status;
 
   factory ResponseToken.fromJson(String str) =>
@@ -22,13 +22,13 @@ class ResponseToken {
 
   factory ResponseToken.fromMap(dynamic json) => ResponseToken(
         message: json["message"],
-        result: List<Token>.from(json["result"].map((x) => Token.fromMap(x))),
+        tokens: List<Token>.from(json["result"].map((x) => Token.fromMap(x))),
         status: json["status"],
       );
 
   Map<String, dynamic> toMap() => {
         "message": message,
-        "result": List<dynamic>.from(result.map((x) => x.toMap())),
+        "result": List<dynamic>.from(tokens.map((x) => x.toMap())),
         "status": status,
       };
 }
