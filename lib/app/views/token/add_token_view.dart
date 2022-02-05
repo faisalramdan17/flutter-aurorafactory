@@ -81,6 +81,11 @@ class AddTokenView extends GetView<AddTokenController> {
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   controller.addTokenContract();
+                  // controller.addTokenContract(onSucess: () {
+                  //   // Get.rootDelegate.toNamed(Routes.ADD_TOKENS);
+                  //   // //to close the drawer
+                  //   // Navigator.of(context).pop();
+                  // });
                   // If the form is valid, display a snackbar. In the real world,
                   // you'd often call a server or save the information in a database.
                   // ScaffoldMessenger.of(context).showSnackBar(

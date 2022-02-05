@@ -6,15 +6,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract CreateToken is ERC20 {
 
-    // string public name = "TutorialToken";
-    // string public symbol = "TT";
-    // uint8 public decimals = 18;
     uint256 public initialSupply = 1700;
-
-    // constructor() public {
-    //     _mint(msg.sender, totalSupply);
-    // }
-
     constructor(string memory name, string memory symbol) ERC20(name, symbol) {
         // Mint 100 tokens to msg.sender
         // Similar to how

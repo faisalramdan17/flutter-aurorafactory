@@ -39,9 +39,57 @@ class Header extends GetView<MenuController> {
           if (!XResponsive.isMobile(context))
             Spacer(flex: XResponsive.isDesktop(context) ? 2 : 1),
           if (isSearchable) const Expanded(child: SearchField()),
+          const ProfileCard(),
         ],
       ),
     );
+  }
+}
+
+class ProfileCard extends StatelessWidget {
+  const ProfileCard({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: kDefaultPadding),
+      child: InkWell(
+        onTap: () {},
+        borderRadius: BorderRadius.circular(10),
+        child: Container(
+          // margin: const EdgeInsets.only(left: kDefaultPadding),
+          padding: const EdgeInsets.symmetric(
+            horizontal: kDefaultPadding,
+            vertical: kDefaultPadding / 3,
+          ),
+          decoration: BoxDecoration(
+            color: kSecondaryColor,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.white10),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 8.0),
+            child: Text("Connect to Wallet"),
+          ),
+        ),
+      ),
+    );
+    // child: Row(
+    //   children: [
+    //     Image.asset(
+    //       "assets/images/profile_pic.png",
+    //       height: 38,
+    //     ),
+    //     if (!XResponsive.isMobile(context))
+    //       const Padding(
+    //         padding: EdgeInsets.symmetric(horizontal: kDefaultPadding / 2),
+    //         child: Text("Faisal Ramdan"),
+    //       ),
+    //     const Icon(Icons.keyboard_arrow_down),
+    //   ],
+    // ),
   }
 }
 

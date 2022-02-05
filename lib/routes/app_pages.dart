@@ -20,6 +20,7 @@ class AppPages {
             page: () => const AddTokenView(),
             binding: BindingsBuilder(() {
               Get.lazyPut(() => AddTokenController());
+              Get.lazyPut(() => Web3DartController());
             }),
             bindings: [TokenBinding()],
           ),

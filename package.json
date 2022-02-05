@@ -10,7 +10,7 @@
   "keywords": [],
   "author": "Faisal Ramdan Mulyadi",
   "scripts": {
-    "clean": "rm -rf ./build/",
+    "clean": "rm -rf ./src/",
     "compile": "truffle compile",
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "npm run deploy:development",

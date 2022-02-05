@@ -91,6 +91,7 @@ module.exports = {
     // timeout: 100000
   },
 
+  contracts_build_directory: "./src/artifacts/",
   // Configure your compilers
   compilers: {
     solc: {

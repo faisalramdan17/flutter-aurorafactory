@@ -5,7 +5,6 @@ class XTextField extends StatelessWidget {
   const XTextField({
     this.label,
     this.hintText,
-    this.initialValue,
     this.validator,
     this.controller,
     this.action,
@@ -25,7 +24,7 @@ class XTextField extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final String? label, hintText, initialValue;
+  final String? label, hintText;
   final String? Function(String?)? validator;
   final TextEditingController? controller;
   final Widget? action;
@@ -52,7 +51,6 @@ class XTextField extends StatelessWidget {
           children: [
             Flexible(
               child: TextFormField(
-                initialValue: initialValue,
                 validator: validator,
                 controller: controller,
                 autocorrect: autocorrect ?? true,

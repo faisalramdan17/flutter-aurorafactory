@@ -12,6 +12,8 @@ export 'shared/layout/layout.dart';
 export 'shared/utils/converter.dart';
 export 'shared/utils/helper.dart';
 export 'shared/utils/responsive.dart';
+export 'shared/utils/open_dialog.dart';
+export 'shared/utils/progress_hub.dart';
 
 export 'shared/widgets/initial_text_icon.dart';
 export 'shared/widgets/text_field.dart';
@@ -37,6 +39,8 @@ export 'app/controllers/token_controller.dart';
 export 'app/controllers/add_token_controller.dart';
 export 'app/controllers/intract_token_controller.dart';
 export 'app/controllers/menu_controller.dart';
+export 'app/controllers/web3dart_controller.dart';
+export 'app/controllers/flutter_web3_controller.dart';
 
 // Views Directories
 export 'app/views/dashboard/dashboard_view.dart';

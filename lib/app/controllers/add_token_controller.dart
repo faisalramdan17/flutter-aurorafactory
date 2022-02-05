@@ -16,14 +16,33 @@ class AddTokenController extends GetxController {
     tokenSymbolCtrl = TextEditingController();
     tokenDecimalCtrl = TextEditingController();
     tokenSupplyCtrl = TextEditingController();
+
+    tokenNameCtrl.text = "Token Coba Aja";
+    tokenSymbolCtrl.text = "TCA";
+    tokenDecimalCtrl.text = "18";
+    tokenSupplyCtrl.text = "10";
     super.onInit();
   }
 
   void addTokenContract() async {
-    //   ResponseTokenContract data = await TokenController.to.tokenRepository
-    //       .getTokenContract(tokenContractAddressCtrl.text);
-    //   tokenContract = data.tokenContract;
-    //   update();
+    // void addTokenContract({void Function()? onSucess}) async {
+
+    await ProgressHud.show();
+    String? result =
+        await Web3DartController.to.transaction("deployNewERC20Token", [
+      tokenNameCtrl.text,
+      tokenSymbolCtrl.text.toUpperCase(),
+      BigInt.parse(tokenDecimalCtrl.text),
+      BigInt.parse(tokenSupplyCtrl.text),
+    ]);
+    if (result != null) {
+      Get.rootDelegate.toNamed(Routes.DASBOARD);
+      // to close the drawer
+      Navigator.of(Get.context!).pop();
+    }
+    // if (onSucess != null) onSucess();
+    await ProgressHud.hide();
+    debugPrint("Result [addTokenContract()] = $result");
   }
 
   // @override

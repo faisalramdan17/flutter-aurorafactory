@@ -1,5 +1,5 @@
-var CreateToken = artifacts.require("CreateToken");
+var ERC20Factory = artifacts.require("ERC20Factory");
 
 module.exports = function(deployer) {
-    deployer.deploy(CreateToken, "SGD Token", "SGDT");
+    deployer.deploy(ERC20Factory);
 };

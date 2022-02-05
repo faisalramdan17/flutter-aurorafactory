@@ -24,9 +24,7 @@ class TopToken extends StatelessWidget {
                   ((XResponsive.isDesktop(context)) ? " New Token " : " ") +
                   "Contract"),
               onPressed: () {
-                // Navigator.of(context).pushNamed(Routes.ADD_TOKENS);
                 Get.rootDelegate.toNamed(Routes.ADD_TOKENS);
-                // Get.toNamed(Routes.DASBOARD);
                 //to close the drawer
                 Navigator.of(context).pop();
               },
