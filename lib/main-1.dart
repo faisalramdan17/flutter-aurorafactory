@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
 
+import 'app/controllers/flutter_web3_controller.dart';
+
 void main() {
   runApp(const MyApp());
   // Get.put(HomeController());
@@ -15,113 +17,113 @@ class MyApp extends StatelessWidget {
       GetMaterialApp(title: 'Flutter Web3 Example', home: Home());
 }
 
-class HomeController extends GetxController {
-  bool get isInOperatingChain => currentChain == OPERATING_CHAIN;
+// class HomeController extends GetxController {
+//   bool get isInOperatingChain => currentChain == OPERATING_CHAIN;
 
-  bool get isConnected => Ethereum.isSupported && currentAddress.isNotEmpty;
+//   bool get isConnected => Ethereum.isSupported && currentAddress.isNotEmpty;
 
-  String currentAddress = '';
+//   String currentAddress = '';
 
-  int currentChain = -1;
+//   int currentChain = -1;
 
-  bool wcConnected = false;
+//   bool wcConnected = false;
 
-  static const OPERATING_CHAIN = 1313161555;
+//   static const OPERATING_CHAIN = 1313161555;
 
-  // final wc = WalletConnectProvider.binance();
-  final wc = WalletConnectProvider.fromRpc(
-    {1313161555: 'https://testnet.aurora.dev'},
-    chainId: 1313161555,
-    network: 'aurora',
-  );
+//   // final wc = WalletConnectProvider.binance();
+//   final wc = WalletConnectProvider.fromRpc(
+//     {1313161555: 'https://testnet.aurora.dev'},
+//     chainId: 1313161555,
+//     network: 'aurora',
+//   );
 
-  Web3Provider? web3wc;
+//   Web3Provider? web3wc;
 
-  @override
-  void onInit() {
-    init();
+//   @override
+//   void onInit() {
+//     init();
 
-    super.onInit();
-  }
+//     super.onInit();
+//   }
 
-  init() {
-    if (Ethereum.isSupported) {
-      connectProvider();
+//   init() {
+//     if (Ethereum.isSupported) {
+//       connectProvider();
 
-      ethereum!.onAccountsChanged((accs) {
-        clear();
-      });
+//       ethereum!.onAccountsChanged((accs) {
+//         clear();
+//       });
 
-      ethereum!.onChainChanged((chain) {
-        clear();
-      });
-    }
-  }
+//       ethereum!.onChainChanged((chain) {
+//         clear();
+//       });
+//     }
+//   }
 
-  clear() {
-    currentAddress = '';
-    currentChain = -1;
-    wcConnected = false;
-    web3wc = null;
+//   clear() {
+//     currentAddress = '';
+//     currentChain = -1;
+//     wcConnected = false;
+//     web3wc = null;
 
-    update();
-  }
+//     update();
+//   }
 
-  connectProvider() async {
-    if (Ethereum.isSupported) {
-      final accs = await ethereum!.requestAccount();
-      if (accs.isNotEmpty) {
-        currentAddress = accs.first;
-        currentChain = await ethereum!.getChainId();
-      }
+//   connectProvider() async {
+//     if (Ethereum.isSupported) {
+//       final accs = await ethereum!.requestAccount();
+//       if (accs.isNotEmpty) {
+//         currentAddress = accs.first;
+//         currentChain = await ethereum!.getChainId();
+//       }
 
-      update();
-    }
-  }
+//       update();
+//     }
+//   }
 
-  connectWC() async {
-    await wc.connect();
-    if (wc.connected) {
-      currentAddress = wc.accounts.first;
-      currentChain = 56;
-      wcConnected = true;
-      web3wc = Web3Provider.fromWalletConnect(wc);
-    }
+//   connectWC() async {
+//     await wc.connect();
+//     if (wc.connected) {
+//       currentAddress = wc.accounts.first;
+//       currentChain = 56;
+//       wcConnected = true;
+//       web3wc = Web3Provider.fromWalletConnect(wc);
+//     }
 
-    update();
-  }
+//     update();
+//   }
 
-  getLastestBlock() async {
-    print(await provider!.getLastestBlock());
-    print(await provider!.getLastestBlockWithTransaction());
-  }
+//   getLastestBlock() async {
+//     print(await provider!.getLastestBlock());
+//     print(await provider!.getLastestBlockWithTransaction());
+//   }
 
-  testProvider() async {
-    final rpcProvider = JsonRpcProvider('https://mainnet.aurora.dev');
-    print(rpcProvider);
-    print(await rpcProvider.getNetwork());
-  }
+//   testProvider() async {
+//     final rpcProvider = JsonRpcProvider('https://mainnet.aurora.dev');
+//     print(rpcProvider);
+//     print(await rpcProvider.getNetwork());
+//   }
 
-  test() async {}
+//   test() async {}
 
-  testSwitchChain() async {
-    await ethereum!.walletSwitchChain(1313161555, () async {
-      await ethereum!.walletAddChain(
-        chainId: 1313161555,
-        chainName: 'Aurora Testnet',
-        nativeCurrency:
-            CurrencyParams(name: 'ETH', symbol: 'ETH', decimals: 18),
-        rpcUrls: ['https://testnet.aurora.dev'],
-      );
-    });
-  }
-}
+//   testSwitchChain() async {
+//     await ethereum!.walletSwitchChain(1313161555, () async {
+//       await ethereum!.walletAddChain(
+//         chainId: 1313161555,
+//         chainName: 'Aurora Testnet',
+//         nativeCurrency:
+//             CurrencyParams(name: 'ETH', symbol: 'ETH', decimals: 18),
+//         rpcUrls: ['https://testnet.aurora.dev'],
+//       );
+//     });
+//   }
+// }
 
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<HomeController>(
-      init: HomeController(),
+    return GetBuilder<FlutterWeb3Controller>(
+      init: FlutterWeb3Controller(),
       builder: (controller) => Scaffold(
         body: Center(
           child: Column(children: [
@@ -143,22 +145,22 @@ class Home extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20));
             }),
             Container(height: 30),
-            if (controller.isConnected && controller.isInOperatingChain) ...[
-              TextButton(
-                  onPressed: controller.getLastestBlock,
-                  child: Text('get lastest block')),
-              Container(height: 10),
-              TextButton(
-                  onPressed: controller.testProvider,
-                  child: Text('test binance rpc provider')),
-              Container(height: 10),
-              TextButton(onPressed: controller.test, child: Text('test')),
-              Container(height: 10),
-              TextButton(
-                  onPressed: controller.testSwitchChain,
-                  child: Text('test switch chain')),
-            ],
-            Container(height: 30),
+            // if (controller.isConnected && controller.isInOperatingChain) ...[
+            //   TextButton(
+            //       onPressed: controller.getLastestBlock,
+            //       child: Text('get lastest block')),
+            //   Container(height: 10),
+            //   TextButton(
+            //       onPressed: controller.testProvider,
+            //       child: Text('test binance rpc provider')),
+            //   Container(height: 10),
+            //   TextButton(onPressed: controller.test, child: Text('test')),
+            //   Container(height: 10),
+            //   TextButton(
+            //       onPressed: controller.testSwitchChain,
+            //       child: Text('test switch chain')),
+            // ],
+            // Container(height: 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

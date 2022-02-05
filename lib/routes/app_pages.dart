@@ -11,7 +11,12 @@ class AppPages {
     GetPage(
         name: Routes.DASBOARD,
         page: () => const DashboardView(),
-        binding: TokenBinding(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => FlutterWeb3Controller());
+        }),
+        bindings: [
+          TokenBinding()
+        ],
         // participatesInRootNavigator: true,
         // preventDuplicates: true,
         children: [
@@ -20,6 +25,7 @@ class AppPages {
             page: () => const AddTokenView(),
             binding: BindingsBuilder(() {
               Get.lazyPut(() => AddTokenController());
+              Get.lazyPut(() => FlutterWeb3Controller());
               Get.lazyPut(() => Web3DartController());
             }),
             bindings: [TokenBinding()],
@@ -29,7 +35,7 @@ class AppPages {
             page: () => const InteractTokenView(),
             binding: BindingsBuilder(() {
               Get.lazyPut(() => IntractTokenController());
-              // Get.put(IntractTokenController());
+              Get.lazyPut(() => FlutterWeb3Controller());
             }),
             bindings: [TokenBinding()],
           ),

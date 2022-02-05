@@ -2,6 +2,7 @@ import 'package:aurorafactory/core.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ApproveAccountForm extends GetView<IntractTokenController> {
   const ApproveAccountForm({
@@ -24,6 +25,10 @@ class ApproveAccountForm extends GetView<IntractTokenController> {
             subtitle:
                 "Approve account to withdraw multiple times up to the specified amount.",
           ),
+          if (controller.resultApproveAccount?.hash != null)
+            TransactionInfoCard(
+              hash: controller.resultApproveAccount!.hash,
+            ),
           XRowResponsive(
             height: 210,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,8 +50,8 @@ class ApproveAccountForm extends GetView<IntractTokenController> {
               const SizedBox(width: 15),
               Flexible(
                 child: XTextField(
-                  controller: controller.transAmountCtrl,
-                  label: "Amount",
+                  controller: controller.transApproveAmountCtrl,
+                  label: "Amount (${controller.tokenContract!.symbol})",
                   hintText: "e.g : 10",
                   validator: MultiValidator([
                     RequiredValidator(errorText: 'Amount field is required'),
@@ -64,11 +69,7 @@ class ApproveAccountForm extends GetView<IntractTokenController> {
               child: XActionButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    // If the form is valid, display a snackbar. In the real world,
-                    // you'd often call a server or save the information in a database.
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Processing Data')),
-                    );
+                    controller.approveAccount();
                   }
                 },
                 label: const Text("Approve Account"),

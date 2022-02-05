@@ -3,7 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-class ProgressHud extends PopupRoute {
+class XProgressHud extends PopupRoute {
   /*
   * Show message.
   * */
@@ -13,7 +13,7 @@ class ProgressHud extends PopupRoute {
       if (_currentHud != null) {
         _currentHud!.navigator!.pop();
       }
-      ProgressHud hud = ProgressHud();
+      XProgressHud hud = XProgressHud();
       hud.message = message;
       hud.isSucceess = isSucceess;
       hud.isHideIcon = isHideIcon;
@@ -33,7 +33,7 @@ class ProgressHud extends PopupRoute {
       if (_currentHud != null) {
         _currentHud!.navigator!.pop();
       }
-      ProgressHud hud = ProgressHud();
+      XProgressHud hud = XProgressHud();
       hud.message = "Coming Soon, still on progress!  😇🙏";
       hud.isUpComming = true;
       _currentHud = hud;
@@ -57,7 +57,7 @@ class ProgressHud extends PopupRoute {
       if (_currentHud != null) {
         _currentHud!.navigator!.pop();
       }
-      ProgressHud hud = ProgressHud();
+      XProgressHud hud = XProgressHud();
       _currentHud = hud;
       Navigator.push(Get.context!, hud);
     } catch (e) {
@@ -104,7 +104,7 @@ class ProgressHud extends PopupRoute {
 
   String loadingMessage = 'loading ...';
 
-  static ProgressHud? _currentHud;
+  static XProgressHud? _currentHud;
 
   @override
   Color? get barrierColor => null;

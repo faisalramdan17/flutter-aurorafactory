@@ -2,6 +2,7 @@ import 'package:aurorafactory/core.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TransferAllowanceForm extends GetView<IntractTokenController> {
   const TransferAllowanceForm({
@@ -24,13 +25,17 @@ class TransferAllowanceForm extends GetView<IntractTokenController> {
             subtitle:
                 "Transfer between accounts a specified amount that you've been authorised to do so.",
           ),
+          if (controller.resultTransferAllowance?.hash != null)
+            TransactionInfoCard(
+              hash: controller.resultTransferAllowance!.hash,
+            ),
           XRowResponsive(
             height: 210,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Flexible(
                 child: XTextField(
-                  controller: controller.transFromAddressCtrl,
+                  controller: controller.transAllowanceFromAddressCtrl,
                   label: "From Address",
                   hintText: "e.g : 0x1ceb00da...",
                   validator: MultiValidator([
@@ -45,7 +50,7 @@ class TransferAllowanceForm extends GetView<IntractTokenController> {
               const SizedBox(width: 15),
               Flexible(
                 child: XTextField(
-                  controller: controller.transToAddressCtrl,
+                  controller: controller.transAllowanceToAddressCtrl,
                   label: "To Address",
                   hintText: "e.g : 0x1ceb00da...",
                   validator: MultiValidator([
@@ -60,8 +65,8 @@ class TransferAllowanceForm extends GetView<IntractTokenController> {
             ],
           ),
           XTextField(
-            controller: controller.transAmountCtrl,
-            label: "Amount",
+            controller: controller.transAllowanceAmountCtrl,
+            label: "Amount (${controller.tokenContract!.symbol})",
             hintText: "e.g : 10",
             validator: MultiValidator([
               RequiredValidator(errorText: 'Amount field is required'),
@@ -76,11 +81,7 @@ class TransferAllowanceForm extends GetView<IntractTokenController> {
               child: XActionButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    // If the form is valid, display a snackbar. In the real world,
-                    // you'd often call a server or save the information in a database.
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Processing Data')),
-                    );
+                    controller.tranferAllowance();
                   }
                 },
                 label: const Text("Transfer Allowance"),

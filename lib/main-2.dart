@@ -115,22 +115,20 @@ class HomeController extends GetxController {
     }
   }
 
-  final abi = [
-    'function name() external view returns (string memory)',
-    'function symbol() external view returns (string memory)',
-    'function totalSupply() external view returns (uint256)',
-  ];
-
   static const MASTERCHEF_ADDRESS =
       '0xFa1494b6Ced688f836adec40bf2D5Ec2336e96ff';
 
   Contract? masterChef;
 
   String tokenName = "";
-
   String tokenSymbol = "";
 
   getMasterChefInformation() async {
+    final abi = [
+      'function name() external view returns (string memory)',
+      'function symbol() external view returns (string memory)',
+      'function totalSupply() external view returns (uint256)',
+    ];
     if (masterChef == null)
       masterChef = Contract(MASTERCHEF_ADDRESS, abi, provider!.getSigner());
     tokenName = await masterChef!.call<String>('name');

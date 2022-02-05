@@ -22,6 +22,18 @@ class InteractTokenRadio extends GetView<IntractTokenController> {
               Flexible(
                 child: RadioListTile<TokenInteraction>(
                   title: const Text(
+                    'Check Balance',
+                    style: TextStyle(fontSize: 14),
+                  ),
+                  value: TokenInteraction.checkBalance,
+                  groupValue: controller.tokenInteraction,
+                  onChanged: controller.setTokenIntraction,
+                  activeColor: kPrimary2Color,
+                ),
+              ),
+              Flexible(
+                child: RadioListTile<TokenInteraction>(
+                  title: const Text(
                     'Transfer Token',
                     style: TextStyle(fontSize: 14),
                   ),
@@ -46,10 +58,10 @@ class InteractTokenRadio extends GetView<IntractTokenController> {
               Flexible(
                 child: RadioListTile<TokenInteraction>(
                   title: const Text(
-                    'Check Balance',
+                    'Check Allowance',
                     style: TextStyle(fontSize: 14),
                   ),
-                  value: TokenInteraction.checkBalance,
+                  value: TokenInteraction.checkAllowance,
                   groupValue: controller.tokenInteraction,
                   onChanged: controller.setTokenIntraction,
                   activeColor: kPrimary2Color,
@@ -62,18 +74,6 @@ class InteractTokenRadio extends GetView<IntractTokenController> {
                     style: TextStyle(fontSize: 14),
                   ),
                   value: TokenInteraction.transferAllowance,
-                  groupValue: controller.tokenInteraction,
-                  onChanged: controller.setTokenIntraction,
-                  activeColor: kPrimary2Color,
-                ),
-              ),
-              Flexible(
-                child: RadioListTile<TokenInteraction>(
-                  title: const Text(
-                    'Check Allowance',
-                    style: TextStyle(fontSize: 14),
-                  ),
-                  value: TokenInteraction.checkAllowance,
                   groupValue: controller.tokenInteraction,
                   onChanged: controller.setTokenIntraction,
                   activeColor: kPrimary2Color,

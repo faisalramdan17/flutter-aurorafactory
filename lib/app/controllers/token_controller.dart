@@ -1,4 +1,5 @@
 import 'package:aurorafactory/core.dart';
+import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
 
 class TokenController extends SuperController<ResponseToken> {
@@ -11,7 +12,11 @@ class TokenController extends SuperController<ResponseToken> {
     super.onInit();
 
     //Loading, Success, Error handle with 1 line of code
-    append(() => tokenRepository.getTokens);
+    append(() => getTokens);
+  }
+
+  Future<ResponseToken> getTokens() async {
+    return tokenRepository.getTokens(await provider!.getSigner().getAddress());
   }
 
   List<Token> getBigestSupply() {

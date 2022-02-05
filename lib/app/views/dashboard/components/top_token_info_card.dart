@@ -15,77 +15,85 @@ class TopTokenInfoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     Color randomColor = XHelper.generateRandomColor();
 
-    return Container(
-      padding: const EdgeInsets.all(kDefaultPadding),
-      decoration: const BoxDecoration(
-        color: kSecondaryColor,
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              XInitialTextIcon(
-                text: token.tokenName,
-                size: XResponsive.isDesktop(context) ? 40 : 35,
-                color: randomColor,
-                colorBackground: randomColor.withOpacity(0.3),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Text(
-                    XConverter.numberSupply(token.tokenSupply,
-                        decimal: token.tokenDecimal, isAbbreviation: true),
-                    textAlign: TextAlign.right,
+    return InkWell(
+      onTap: () =>
+          XOpenDialog.chooseActionIteractionToken(token.contractAddress!),
+      child: Container(
+        padding: const EdgeInsets.all(kDefaultPadding),
+        decoration: const BoxDecoration(
+          color: kSecondaryColor,
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                XInitialTextIcon(
+                  text: token.tokenName,
+                  size: XResponsive.isDesktop(context) ? 40 : 35,
+                  color: randomColor,
+                  colorBackground: randomColor.withOpacity(0.3),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Text(
+                      XConverter.numberSupply(token.tokenSupply,
+                              decimal: token.tokenDecimal,
+                              isAbbreviation: true) +
+                          (token.tokenSymbol == null
+                              ? ""
+                              : "  (${token.tokenSymbol})"),
+                      textAlign: TextAlign.right,
+                    ),
                   ),
                 ),
-              ),
-              InkWell(
-                onTap: () => launch(ApiString.explorerURL.testnet +
-                    "/token/${token.contractAddress}"),
-                child: const Icon(
-                  Icons.open_in_new,
-                  color: Colors.blue,
-                  size: 20,
+                InkWell(
+                  onTap: () => launch(ApiString.explorerURL.testnet +
+                      "/token/${token.contractAddress}"),
+                  child: const Icon(
+                    Icons.open_in_new,
+                    color: Colors.blue,
+                    size: 20,
+                  ),
+                )
+              ],
+            ),
+            Text(
+              token.tokenName ?? "-",
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            XProgressLine(
+              color: randomColor,
+              percentage: 70,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    "${token.gasUsed}" +
+                        (XResponsive.isDesktop(context) ? " (Gas Used)" : ""),
+                    style: Theme.of(context)
+                        .textTheme
+                        .caption!
+                        .copyWith(color: Colors.white70),
+                  ),
                 ),
-              )
-            ],
-          ),
-          Text(
-            token.tokenName ?? "-",
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-          XProgressLine(
-            color: randomColor,
-            percentage: 70,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Text(
-                  "${token.gasUsed}" +
-                      (XResponsive.isDesktop(context) ? " (Gas Used)" : ""),
+                Text(
+                  token.gas!,
                   style: Theme.of(context)
                       .textTheme
                       .caption!
-                      .copyWith(color: Colors.white70),
+                      .copyWith(color: Colors.white),
                 ),
-              ),
-              Text(
-                token.gas!,
-                style: Theme.of(context)
-                    .textTheme
-                    .caption!
-                    .copyWith(color: Colors.white),
-              ),
-            ],
-          )
-        ],
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

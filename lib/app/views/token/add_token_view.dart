@@ -42,8 +42,14 @@ class AddTokenView extends GetView<AddTokenController> {
                     controller: controller.tokenDecimalCtrl,
                     label: "Decimal Places",
                     hintText: "e.g : 1 - 18",
-                    validator: PatternValidator(r'\b(0?[1-9]|[1][0-8]|100)\b',
-                        errorText: 'Decimal places must be between 1 to 18'),
+                    validator: MultiValidator([
+                      RequiredValidator(
+                          errorText: 'Decimal places is required'),
+                      RangeValidator(
+                          min: 1,
+                          max: 18,
+                          errorText: 'Decimal places must be between 1 to 18'),
+                    ]),
                   ),
                 ),
               ],
@@ -71,8 +77,11 @@ class AddTokenView extends GetView<AddTokenController> {
                     controller: controller.tokenSupplyCtrl,
                     label: "Total Supply",
                     hintText: "e.g : 100",
-                    validator: PatternValidator(r'^(|\d+)$',
-                        errorText: 'Total supplay must be bigger or than 0'),
+                    validator: MultiValidator([
+                      RequiredValidator(errorText: 'Total supplay is required'),
+                      PatternValidator(r'^[1-9]+[0-9]*$',
+                          errorText: 'Total supplay must be bigger than 0'),
+                    ]),
                   ),
                 ),
               ],
@@ -81,16 +90,6 @@ class AddTokenView extends GetView<AddTokenController> {
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   controller.addTokenContract();
-                  // controller.addTokenContract(onSucess: () {
-                  //   // Get.rootDelegate.toNamed(Routes.ADD_TOKENS);
-                  //   // //to close the drawer
-                  //   // Navigator.of(context).pop();
-                  // });
-                  // If the form is valid, display a snackbar. In the real world,
-                  // you'd often call a server or save the information in a database.
-                  // ScaffoldMessenger.of(context).showSnackBar(
-                  //   const SnackBar(content: Text('Processing Data')),
-                  // );
                 }
               },
               label: const Text("Add Token"),

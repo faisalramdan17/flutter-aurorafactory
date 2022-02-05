@@ -12,7 +12,7 @@ class ConfirmDialog extends StatelessWidget {
     this.labelRightButton,
     this.colorLeftButton,
     this.colorRightButton,
-    this.colorLeftTextButton = Colors.black,
+    this.colorLeftTextButton = Colors.white,
     this.colorRightTextButton = Colors.white,
     this.fontSizeLeftButton,
     this.fontSizeRightButton,
@@ -21,6 +21,7 @@ class ConfirmDialog extends StatelessWidget {
     this.onLeftPressed,
     this.onRightPressed,
     this.customWidget,
+    this.insetPadding,
     Key? key,
   }) : super(key: key);
 
@@ -34,10 +35,12 @@ class ConfirmDialog extends StatelessWidget {
   final Function()? onRightPressed;
   final Icon? iconLeftButton, iconRightButton;
   final Widget? customWidget;
+  final EdgeInsets? insetPadding;
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      insetPadding: insetPadding,
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: SingleChildScrollView(
@@ -78,84 +81,84 @@ class ConfirmDialog extends StatelessWidget {
                         ),
                       ),
                     ),
-              (customWidget == null)
-                  ? Container()
-                  : Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 15.0, horizontal: 8),
-                      child: customWidget,
-                    ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Expanded(
-                      child: InkWell(
-                        onTap: onLeftPressed,
-                        child: Container(
-                          height: 45,
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          decoration: BoxDecoration(
-                            color: colorLeftButton,
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(15),
-                            ),
-                            border: Border.all(
-                              color: Colors.grey[300]!,
-                              width: 1,
-                            ),
-                          ),
-                          child: Center(
-                              child: Text(
-                            labelLeftButton ?? "Cancel",
-                            style: TextStyle(
-                                color: colorLeftTextButton,
-                                fontSize: fontSizeLeftButton ?? 16),
-                          )),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: InkWell(
-                        onTap: onRightPressed,
-                        child: Container(
-                          height: 45,
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          decoration: BoxDecoration(
-                            color: colorRightButton ?? Get.theme.primaryColor,
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(15),
-                            ),
-                          ),
-                          child: Center(
-                              child: Text(
-                            labelRightButton ?? "Yes",
-                            style: TextStyle(
-                                color: colorRightTextButton ?? Colors.white,
-                                fontSize: fontSizeRightButton ?? 16),
-                          )),
-                        ),
-                      ),
-                    ),
-                    // Padding(
-                    //   padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    //   child: ExButton(
-                    //     icon: iconRightButton,
-                    //     labelButton: labelRightButton ?? labels.text.yes,
-                    //     color: colorRightButton ??
-                    //         (Get.isDarkMode ? Colors.white : Colors.green[400]),
-                    //     colorText: colorRightTextButton ??
-                    //         (Get.isDarkMode ? Colors.black87 : Colors.white),
-                    //     fontSize: fontSizeRightButton,
-                    //     onPressed: onRightPressed,
-                    //   ),
-                    // ),
-                  ],
+              if (customWidget != null)
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 15.0, horizontal: 8),
+                  child: customWidget,
                 ),
-              )
+              if (customWidget == null)
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0, vertical: 12),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Expanded(
+                        child: InkWell(
+                          onTap: onLeftPressed,
+                          child: Container(
+                            height: 45,
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            decoration: BoxDecoration(
+                              color: colorLeftButton,
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(15),
+                              ),
+                              border: Border.all(
+                                color: Colors.grey[300]!,
+                                width: 1,
+                              ),
+                            ),
+                            child: Center(
+                                child: Text(
+                              labelLeftButton ?? "Cancel",
+                              style: TextStyle(
+                                  color: colorLeftTextButton,
+                                  fontSize: fontSizeLeftButton ?? 16),
+                            )),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: InkWell(
+                          onTap: onRightPressed,
+                          child: Container(
+                            height: 45,
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            decoration: BoxDecoration(
+                              color: colorRightButton ?? Get.theme.primaryColor,
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(15),
+                              ),
+                            ),
+                            child: Center(
+                                child: Text(
+                              labelRightButton ?? "Yes",
+                              style: TextStyle(
+                                  color: colorRightTextButton ?? Colors.white,
+                                  fontSize: fontSizeRightButton ?? 16),
+                            )),
+                          ),
+                        ),
+                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      //   child: ExButton(
+                      //     icon: iconRightButton,
+                      //     labelButton: labelRightButton ?? labels.text.yes,
+                      //     color: colorRightButton ??
+                      //         (Get.isDarkMode ? Colors.white : Colors.green[400]),
+                      //     colorText: colorRightTextButton ??
+                      //         (Get.isDarkMode ? Colors.black87 : Colors.white),
+                      //     fontSize: fontSizeRightButton,
+                      //     onPressed: onRightPressed,
+                      //   ),
+                      // ),
+                    ],
+                  ),
+                )
             ],
           ),
         ),

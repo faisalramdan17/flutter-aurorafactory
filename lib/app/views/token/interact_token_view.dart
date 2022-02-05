@@ -37,10 +37,7 @@ class InteractTokenView extends GetView<IntractTokenController> {
                 action: XActionButton(
                   onPressed: () {
                     if (_tokenContractFormKey.currentState!.validate()) {
-                      controller.getTokenContract();
-                      //   // Get.showSnackbar(const GetSnackBar(
-                      //   //   message: "Processing Data",
-                      //   // ));
+                      controller.getContractToken();
                     }
                   },
                   label: const Text("Go to Token"),
@@ -61,12 +58,12 @@ class InteractTokenView extends GetView<IntractTokenController> {
       children: [
         buildContactAddresInfo(),
         const InteractTokenRadio(),
-        if (controller.tokenInteraction == TokenInteraction.transferToken)
+        if (controller.tokenInteraction == TokenInteraction.checkBalance)
+          CheckBalanceForm(formKey: _formKey)
+        else if (controller.tokenInteraction == TokenInteraction.transferToken)
           TransferTokenForm(formKey: _formKey)
         else if (controller.tokenInteraction == TokenInteraction.approveAccount)
           ApproveAccountForm(formKey: _formKey)
-        else if (controller.tokenInteraction == TokenInteraction.checkBalance)
-          CheckBalanceForm(formKey: _formKey)
         else if (controller.tokenInteraction ==
             TokenInteraction.transferAllowance)
           TransferAllowanceForm(formKey: _formKey)
@@ -79,19 +76,16 @@ class InteractTokenView extends GetView<IntractTokenController> {
   }
 
   Widget buildContactAddresInfo() {
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.only(top: 15),
-      padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 15),
-      decoration: BoxDecoration(
-          color: Colors.white12, borderRadius: BorderRadius.circular(10)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    return Padding(
+      padding: const EdgeInsets.only(top: 15),
+      child: XNoticeInfo(
         children: [
-          Text(
-              "Interacting with token at address: ${controller.tokenContract!.contractAddress} (${controller.tokenContract!.symbol})"),
-          Text(
-              "Total Supply is:  ${XConverter.numberSupply(controller.tokenContract!.totalSupply!, decimal: controller.tokenContract!.decimals!)}"),
+          SelectableText(
+              "Token Name: ${controller.tokenContract!.name} (${controller.tokenContract!.symbol})"),
+          SelectableText(
+              "Interacting with token at address: ${controller.tokenContract!.contractAddress}"),
+          SelectableText(
+              "Total Supply is:  ${XConverter.numberSupply(controller.tokenContract!.totalSupply!, decimal: controller.tokenContract!.decimals!)} ${controller.tokenContract!.symbol}"),
         ],
       ),
     );

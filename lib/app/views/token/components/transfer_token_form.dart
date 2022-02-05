@@ -2,6 +2,7 @@ import 'package:aurorafactory/core.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TransferTokenForm extends GetView<IntractTokenController> {
   const TransferTokenForm({
@@ -23,6 +24,10 @@ class TransferTokenForm extends GetView<IntractTokenController> {
             title: "Transfer Token",
             subtitle: "Transfer to another account address.",
           ),
+          if (controller.resultTransferToken?.hash != null)
+            TransactionInfoCard(
+              hash: controller.resultTransferToken!.hash,
+            ),
           XRowResponsive(
             height: 210,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,7 +50,7 @@ class TransferTokenForm extends GetView<IntractTokenController> {
               Flexible(
                 child: XTextField(
                   controller: controller.transAmountCtrl,
-                  label: "Amount",
+                  label: "Amount (${controller.tokenContract!.symbol})",
                   hintText: "e.g : 10",
                   validator: MultiValidator([
                     RequiredValidator(errorText: 'Amount field is required'),
@@ -63,11 +68,7 @@ class TransferTokenForm extends GetView<IntractTokenController> {
               child: XActionButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    // If the form is valid, display a snackbar. In the real world,
-                    // you'd often call a server or save the information in a database.
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Processing Data')),
-                    );
+                    controller.tranferToken();
                   }
                 },
                 label: const Text("Transfer Amount"),

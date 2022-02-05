@@ -23,9 +23,19 @@ class CheckBalanceForm extends GetView<IntractTokenController> {
             title: "Check Balance",
             subtitle: "Check balance of account.",
           ),
+          if (controller.resultCheckBalance != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: XNoticeInfo(
+                children: [
+                  SelectableText(
+                      "The balance of account is: ${XConverter.amountFromBigInt(controller.resultCheckBalance!, controller.tokenContract!.decimals!)} ${controller.tokenContract!.symbol}"),
+                ],
+              ),
+            ),
           XTextField(
-            controller: controller.transToAddressCtrl,
-            label: "To Address",
+            controller: controller.transBalanceAddressCtrl,
+            label: "Address",
             hintText: "e.g : 0x1ceb00da...",
             validator: MultiValidator([
               RequiredValidator(errorText: 'To address field is required'),
@@ -40,11 +50,7 @@ class CheckBalanceForm extends GetView<IntractTokenController> {
               child: XActionButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    // If the form is valid, display a snackbar. In the real world,
-                    // you'd often call a server or save the information in a database.
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Processing Data')),
-                    );
+                    controller.getBalane();
                   }
                 },
                 label: const Text("Check Balance"),

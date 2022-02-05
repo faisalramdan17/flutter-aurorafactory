@@ -1,4 +1,8 @@
+import 'dart:html';
+
+import 'package:aurorafactory/core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 class InfoDialog extends StatelessWidget {
@@ -7,6 +11,7 @@ class InfoDialog extends StatelessWidget {
     this.content,
     this.lottiePath,
     this.lottiePadding,
+    this.padding,
     this.labelButton,
     this.colorButton,
     this.colorTextButton,
@@ -18,7 +23,7 @@ class InfoDialog extends StatelessWidget {
   }) : super(key: key);
 
   final String? title, content, lottiePath;
-  final EdgeInsets? lottiePadding;
+  final EdgeInsets? lottiePadding, padding;
   final String? labelButton;
   final Color? colorButton;
   final Color? colorTextButton;
@@ -30,6 +35,7 @@ class InfoDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      insetPadding: padding,
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: SingleChildScrollView(
@@ -49,7 +55,8 @@ class InfoDialog extends StatelessWidget {
               (title == null)
                   ? Container()
                   : Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 15),
                       child: Text(
                         title!,
                         style: const TextStyle(
@@ -80,31 +87,42 @@ class InfoDialog extends StatelessWidget {
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12),
-                child: InkWell(
-                  onTap: onPressed,
-                  child: Container(
-                    height: 45,
-                    color: colorButton,
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(15),
-                      ),
-                      border: Border.all(
-                        color: Colors.grey[300]!,
-                        width: 1,
-                      ),
-                    ),
-                    child: Center(
-                        child: Text(
+                child: XActionButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    label: Text(
                       labelButton ?? "Ok, Thanks!",
                       style: TextStyle(
                         color: colorTextButton,
                         fontSize: fontSizeButton ?? 16,
                       ),
                     )),
-                  ),
-                ),
+                // child: InkWell(
+                //   onTap: onPressed,
+                //   child: Container(
+                //     height: 45,
+                //     padding: const EdgeInsets.symmetric(horizontal: 15),
+                //     decoration: BoxDecoration(
+                //       color: colorButton ?? Get.theme.primaryColor,
+                //       borderRadius: const BorderRadius.all(
+                //         Radius.circular(7),
+                //       ),
+                //       border: Border.all(
+                //         color: Get.theme.primaryColor,
+                //         width: 1,
+                //       ),
+                //     ),
+                //     child: Center(
+                //         child: Text(
+                //       labelButton ?? "Ok, Thanks!",
+                //       style: TextStyle(
+                //         color: colorTextButton,
+                //         fontSize: fontSizeButton ?? 16,
+                //       ),
+                //     )),
+                //   ),
+                // ),
               )
             ],
           ),

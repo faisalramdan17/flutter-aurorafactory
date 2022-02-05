@@ -24,13 +24,23 @@ class CheckAllowanceForm extends GetView<IntractTokenController> {
             subtitle:
                 "Check what amount has been approved for withdrawal between two accounts.",
           ),
+          if (controller.resultCheckAllowance != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: XNoticeInfo(
+                children: [
+                  SelectableText(
+                      "The amount is: ${XConverter.amountFromBigInt(controller.resultCheckAllowance!, controller.tokenContract!.decimals!)} ${controller.tokenContract!.symbol}"),
+                ],
+              ),
+            ),
           XRowResponsive(
             height: 210,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Flexible(
                 child: XTextField(
-                  controller: controller.ownerAddressCtrl,
+                  controller: controller.transAllowanceFromAddressCtrl,
                   label: "Owner Address",
                   hintText: "e.g : 0x1ceb00da...",
                   validator: MultiValidator([
@@ -45,7 +55,7 @@ class CheckAllowanceForm extends GetView<IntractTokenController> {
               const SizedBox(width: 15),
               Flexible(
                 child: XTextField(
-                  controller: controller.spenderAddressCtrl,
+                  controller: controller.transAllowanceToAddressCtrl,
                   label: "Spender Address",
                   hintText: "e.g : 0x1ceb00da...",
                   validator: MultiValidator([
@@ -66,11 +76,7 @@ class CheckAllowanceForm extends GetView<IntractTokenController> {
               child: XActionButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    // If the form is valid, display a snackbar. In the real world,
-                    // you'd often call a server or save the information in a database.
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Processing Data')),
-                    );
+                    controller.checkAllowance();
                   }
                 },
                 label: const Text("Transfer Allowance"),

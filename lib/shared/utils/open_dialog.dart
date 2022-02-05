@@ -1,13 +1,15 @@
+import 'package:aurorafactory/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../dialogs/confirm_dialog.dart';
 import '../dialogs/info_dialog.dart';
 import 'progress_hub.dart';
 
-class OpenDialog {
+class XOpenDialog {
   static const DialogTransitionType animationType = DialogTransitionType.size;
 
   static Future<void> messageSuccess(String message,
@@ -31,7 +33,7 @@ class OpenDialog {
   static Future<void> messageError(String message,
       {String? title, Duration? duration}) async {
     debugPrint("[ERROR] : ${message.toString()}");
-    await ProgressHud.hide();
+    await XProgressHud.hide();
 
     Get.snackbar(
       title ?? "Error",
@@ -56,6 +58,7 @@ class OpenDialog {
     Function()? onClicked,
     Widget? customWidget,
     bool isBackAfterYes = true,
+    EdgeInsets? insetPadding,
   }) async {
     return await showAnimatedDialog(
       context: Get.context!,
@@ -68,6 +71,7 @@ class OpenDialog {
         content: content,
         lottiePath: lottiePath,
         lottiePadding: lottiePadding,
+        padding: insetPadding,
         labelButton: labelButton,
         customWidget: customWidget,
         onPressed: () {
@@ -78,17 +82,17 @@ class OpenDialog {
     );
   }
 
-  static Future<T?> confirm<T>({
-    String? title,
-    String? content,
-    String? lottiePath,
-    String? labelNoButton,
-    Function()? onNoClicked,
-    String? labelYesButton,
-    required Function()? onYesClicked,
-    Widget? customWidget,
-    bool isBackAfterYes = true,
-  }) async {
+  static Future<T?> confirm<T>(
+      {String? title,
+      String? content,
+      String? lottiePath,
+      String? labelNoButton,
+      Function()? onNoClicked,
+      String? labelYesButton,
+      Function()? onYesClicked,
+      Widget? customWidget,
+      bool isBackAfterYes = true,
+      EdgeInsets? insetPadding}) async {
     // await GetxFire.progressHud.hide();
     return await showAnimatedDialog(
       context: Get.context!,
@@ -99,6 +103,7 @@ class OpenDialog {
       builder: (_) => ConfirmDialog(
         title: title,
         content: content,
+        insetPadding: insetPadding,
         lottiePath: lottiePath,
         labelLeftButton: labelNoButton,
         customWidget: customWidget,
@@ -111,6 +116,39 @@ class OpenDialog {
           if (isBackAfterYes) Get.back();
           if (onYesClicked != null) onYesClicked();
         },
+      ),
+    );
+  }
+
+  static chooseActionIteractionToken(String contractAddress) {
+    confirm(
+      insetPadding: EdgeInsets.symmetric(
+          horizontal: XResponsive.isDesktop(Get.context!) ? 350 : 50),
+      title: "Confirmation",
+      content: "Please choose one for action:",
+      customWidget: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          XActionButton(
+            icon: Icons.article,
+            backgroundColor: kPrimary2Color,
+            label: const Text("Interact with Token Contract"),
+            onPressed: () {
+              Get.rootDelegate.toNamed(
+                  Routes.INTERACT_TOKEN + "?contractAddress=$contractAddress");
+              Navigator.pop(Get.context!);
+            },
+          ),
+          XActionButton(
+            icon: Icons.open_in_new,
+            backgroundColor: kPrimary2Color,
+            label: const Text("View Token Contract in Explorer"),
+            onPressed: () {
+              launch(ApiString.explorerURL.testnet + "/token/$contractAddress");
+              Navigator.pop(Get.context!);
+            },
+          ),
+        ],
       ),
     );
   }

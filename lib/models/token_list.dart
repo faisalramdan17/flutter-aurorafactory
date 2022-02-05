@@ -83,7 +83,12 @@ class Token {
   String toJson() => json.encode(toMap());
 
   factory Token.fromMap(dynamic json) => Token(
-        tokenSupply: double.tryParse(json["value"] ?? "0")!,
+        tokenName: json["tokenName"],
+        tokenSymbol: json["tokenSymbol"],
+        tokenSupply: double.tryParse(
+            json["value"] == "" ? "0" : (json["value"] ?? "0"))!,
+        tokenDecimal: int.tryParse(
+            json["tokenDecimal"] == "" ? "0" : (json["tokenDecimal"] ?? "0"))!,
         blockHash: json["blockHash"],
         blockNumber: json["blockNumber"],
         confirmations: json["confirmations"],
@@ -99,9 +104,6 @@ class Token {
         nonce: json["nonce"],
         timeStamp: json["timeStamp"],
         to: json["to"],
-        tokenDecimal: int.tryParse(json["tokenDecimal"] ?? "0")!,
-        tokenName: json["tokenName"],
-        tokenSymbol: json["tokenSymbol"],
         transactionIndex: json["transactionIndex"],
       );
 

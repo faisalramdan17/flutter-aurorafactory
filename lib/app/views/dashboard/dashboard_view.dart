@@ -2,7 +2,7 @@ import 'package:aurorafactory/core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'components/top_token.dart';
-import 'components/recent_tokens.dart';
+import 'components/my_tokens.dart';
 
 class DashboardView extends GetView<TokenController> {
   const DashboardView({Key? key}) : super(key: key);
@@ -17,7 +17,7 @@ class DashboardView extends GetView<TokenController> {
         children: const [
           TopToken(),
           SizedBox(height: kDefaultPadding),
-          RecentTokens(),
+          MyTokens(),
         ],
       ),
     );

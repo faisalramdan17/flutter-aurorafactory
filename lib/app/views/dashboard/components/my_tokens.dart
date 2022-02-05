@@ -3,10 +3,9 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:fade_shimmer/fade_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-class RecentTokens extends GetView<TokenController> {
-  const RecentTokens({
+class MyTokens extends GetView<TokenController> {
+  const MyTokens({
     Key? key,
   }) : super(key: key);
 
@@ -37,13 +36,14 @@ class RecentTokens extends GetView<TokenController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Recent Tokens",
+            "My Own Tokens",
             style: Theme.of(context).textTheme.subtitle1,
           ),
           const SizedBox(height: 4),
           const Divider(),
           SizedBox(
             width: double.infinity,
+            // TODO: Use websocet to get data
             child: controller.obx(
               (state) {
                 return DataTable2(
@@ -71,12 +71,8 @@ class RecentTokens extends GetView<TokenController> {
 
 DataRow recentTokenDataRow(Token token) {
   return DataRow2(
-    onTap: () {
-      launch(ApiString.explorerURL.testnet + "/token/${token.contractAddress}");
-      //Get.rootDelegate.toNamed('/home/country');
-      // Get.rootDelegate
-      //     .toNamed('/home/country/details?id=$index');
-    },
+    onTap: () =>
+        XOpenDialog.chooseActionIteractionToken(token.contractAddress!),
     cells: [
       DataCell(
         Row(

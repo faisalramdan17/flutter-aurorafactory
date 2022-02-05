@@ -1,22 +1,21 @@
+// ignore_for_file: constant_identifier_names
+
+import 'package:aurorafactory/core.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
 
 class FlutterWeb3Controller extends GetxController {
+  static FlutterWeb3Controller to = Get.find();
   bool get isInOperatingChain => currentChain == OPERATING_CHAIN;
-
   bool get isConnected => Ethereum.isSupported && currentAddress.isNotEmpty;
-
   String currentAddress = '';
-
   int currentChain = -1;
-
   bool wcConnected = false;
-
   static const OPERATING_CHAIN = 1313161555;
 
-  // final wc = WalletConnectProvider.binance();
   final wc = WalletConnectProvider.fromRpc(
-    {1313161555: 'https://testnet.aurora.dev'},
+    {1313161555: ApiString.networkURL.testnet},
     chainId: 1313161555,
     network: 'aurora',
   );
@@ -25,19 +24,30 @@ class FlutterWeb3Controller extends GetxController {
 
   @override
   void onInit() {
-    init();
-
+    initEthereumProvider();
     super.onInit();
   }
 
-  init() {
+  @override
+  void onReady() {
+    if (!Ethereum.isSupported) {
+      XOpenDialog.info(
+        insetPadding: EdgeInsets.symmetric(
+            horizontal: XResponsive.isDesktop(Get.context!) ? 350 : 50),
+        title: "Information",
+        content:
+            "Your browser is not supported, please install MetaMask extension first!",
+      );
+    }
+    super.onReady();
+  }
+
+  initEthereumProvider() {
     if (Ethereum.isSupported) {
       connectProvider();
-
       ethereum!.onAccountsChanged((accs) {
         clear();
       });
-
       ethereum!.onChainChanged((chain) {
         clear();
       });
@@ -49,7 +59,6 @@ class FlutterWeb3Controller extends GetxController {
     currentChain = -1;
     wcConnected = false;
     web3wc = null;
-
     update();
   }
 
@@ -57,10 +66,10 @@ class FlutterWeb3Controller extends GetxController {
     if (Ethereum.isSupported) {
       final accs = await ethereum!.requestAccount();
       if (accs.isNotEmpty) {
+        // print("accs ==> $accs");
         currentAddress = accs.first;
         currentChain = await ethereum!.getChainId();
       }
-
       update();
     }
   }
@@ -73,32 +82,6 @@ class FlutterWeb3Controller extends GetxController {
       wcConnected = true;
       web3wc = Web3Provider.fromWalletConnect(wc);
     }
-
     update();
-  }
-
-  getLastestBlock() async {
-    print(await provider!.getLastestBlock());
-    print(await provider!.getLastestBlockWithTransaction());
-  }
-
-  testProvider() async {
-    final rpcProvider = JsonRpcProvider('https://mainnet.aurora.dev');
-    print(rpcProvider);
-    print(await rpcProvider.getNetwork());
-  }
-
-  test() async {}
-
-  testSwitchChain() async {
-    await ethereum!.walletSwitchChain(1313161555, () async {
-      await ethereum!.walletAddChain(
-        chainId: 1313161555,
-        chainName: 'Aurora Testnet',
-        nativeCurrency:
-            CurrencyParams(name: 'ETH', symbol: 'ETH', decimals: 18),
-        rpcUrls: ['https://testnet.aurora.dev'],
-      );
-    });
   }
 }

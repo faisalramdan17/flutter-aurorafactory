@@ -7,6 +7,8 @@ export 'shared/constants/api.dart';
 export 'shared/constants/sizes.dart';
 export 'shared/constants/colors.dart';
 export 'shared/constants/enums.dart';
+export 'shared/constants/asset_paths.dart';
+export 'shared/constants/lottie_path.dart';
 
 export 'shared/layout/layout.dart';
 export 'shared/utils/converter.dart';
@@ -21,6 +23,8 @@ export 'shared/widgets/action_button.dart';
 export 'shared/widgets/progress_line.dart';
 export 'shared/widgets/row_responsive.dart';
 export 'shared/widgets/title_subtitle.dart';
+export 'shared/widgets/notice_info.dart';
+export 'shared/widgets/transaction_info_card.dart';
 
 // Models Directories
 export 'models/token_list.dart';

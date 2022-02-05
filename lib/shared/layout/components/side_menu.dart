@@ -56,9 +56,7 @@ class SideMenu extends StatelessWidget {
             title: "Dashboard",
             svgSrc: "assets/menu/menu_dashbord.svg",
             onPressed: () {
-              // Navigator.of(context).pushNamed(Routes.DASBOARD);
               Get.rootDelegate.toNamed(Routes.DASBOARD);
-              // Get.toNamed(Routes.DASBOARD);
               //to close the drawer
               Navigator.of(context).pop();
             },
@@ -69,15 +67,12 @@ class SideMenu extends StatelessWidget {
             title: "Interact with Token",
             svgSrc: "assets/menu/menu_tran.svg",
             onPressed: () {
-              // Navigator.of(context).pushNamed(Routes.INTERACT_TOKEN);
               Get.rootDelegate.toNamed(Routes.INTERACT_TOKEN);
-              // Get.toNamed(Routes.INTERACT_TOKEN);
               //to close the drawer
               Navigator.of(context).pop();
-              // Get.rootDelegate
-              //     .toNamed('/home/country/details?id=$index');
             },
           ),
+          const Divider(),
           DrawerListTile(
             title: "Open Explorer",
             svgSrc: "assets/menu/menu_doc.svg",

@@ -1,7 +1,8 @@
 import 'package:aurorafactory/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:flutter_web3/flutter_web3.dart';
+import 'package:get/get.dart';
 
 class Header extends GetView<MenuController> {
   const Header({
@@ -53,43 +54,99 @@ class ProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: kDefaultPadding),
-      child: InkWell(
-        onTap: () {},
-        borderRadius: BorderRadius.circular(10),
-        child: Container(
-          // margin: const EdgeInsets.only(left: kDefaultPadding),
-          padding: const EdgeInsets.symmetric(
-            horizontal: kDefaultPadding,
-            vertical: kDefaultPadding / 3,
-          ),
-          decoration: BoxDecoration(
-            color: kSecondaryColor,
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: Colors.white10),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 8.0),
-            child: Text("Connect to Wallet"),
-          ),
+    return GetBuilder<FlutterWeb3Controller>(builder: (controller) {
+      return Padding(
+        padding: const EdgeInsets.only(left: kDefaultPadding),
+        child: InkWell(
+          onTap: () {
+            if (controller.isConnected && !controller.isInOperatingChain) {
+              XOpenDialog.info(
+                insetPadding: EdgeInsets.symmetric(
+                    horizontal: XResponsive.isDesktop(Get.context!) ? 350 : 50),
+                title: "Information",
+                content:
+                    "Wrong chain network, please change to Aurora Testnet Network!",
+              );
+            } else if (Ethereum.isSupported) {
+              controller.connectProvider();
+            } else {
+              XOpenDialog.info(
+                insetPadding: EdgeInsets.symmetric(
+                    horizontal: XResponsive.isDesktop(Get.context!) ? 350 : 50),
+                title: "Information",
+                content:
+                    "Your browser is not supported, please install MetaMask extension first!",
+              );
+            }
+          },
+          borderRadius: BorderRadius.circular(10),
+          child: Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: kDefaultPadding,
+                vertical: kDefaultPadding / 3,
+              ),
+              decoration: BoxDecoration(
+                color: kSecondaryColor,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.white10),
+              ),
+              child: Row(
+                children: [
+                  if (controller.isConnected && controller.isInOperatingChain)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 4.0),
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            AssetPaths.LOGO + "metamask-logo.png",
+                            height: 20,
+                          ),
+                          if (!XResponsive.isMobile(context))
+                            Container(
+                              margin: const EdgeInsets.only(left: 10),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: kDefaultPadding / 2),
+                              child: Text(XHelper.shortAddress(
+                                  controller.currentAddress)),
+                            ),
+                          // const Icon(Icons.keyboard_arrow_down),
+                        ],
+                      ),
+                    )
+                  else if (controller.isConnected &&
+                      !controller.isInOperatingChain)
+                    const Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 11, horizontal: 8.0),
+                      child: Text("Wrong Chain Network!"),
+                    )
+                  else if (Ethereum.isSupported)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 6, horizontal: 4.0),
+                      child: Row(
+                        children: [
+                          const Text("Connect to MetaMask"),
+                          const SizedBox(width: 12),
+                          Image.asset(
+                            AssetPaths.LOGO + "metamask-black.png",
+                            height: 27,
+                          ),
+                        ],
+                      ),
+                    )
+                  else
+                    const Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 11, horizontal: 8.0),
+                      child: Text("Unsupported MetaMask!"),
+                    ),
+                ],
+              )),
         ),
-      ),
-    );
-    // child: Row(
-    //   children: [
-    //     Image.asset(
-    //       "assets/images/profile_pic.png",
-    //       height: 38,
-    //     ),
-    //     if (!XResponsive.isMobile(context))
-    //       const Padding(
-    //         padding: EdgeInsets.symmetric(horizontal: kDefaultPadding / 2),
-    //         child: Text("Faisal Ramdan"),
-    //       ),
-    //     const Icon(Icons.keyboard_arrow_down),
-    //   ],
-    // ),
+      );
+    });
   }
 }
 
