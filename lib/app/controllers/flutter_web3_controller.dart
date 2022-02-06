@@ -15,8 +15,8 @@ class FlutterWeb3Controller extends GetxController {
   static const OPERATING_CHAIN = 1313161555;
 
   final wc = WalletConnectProvider.fromRpc(
-    {1313161555: ApiString.networkURL.testnet},
-    chainId: 1313161555,
+    {OPERATING_CHAIN: ApiString.networkURL.testnet},
+    chainId: OPERATING_CHAIN,
     network: 'aurora',
   );
 
@@ -66,7 +66,6 @@ class FlutterWeb3Controller extends GetxController {
     if (Ethereum.isSupported) {
       final accs = await ethereum!.requestAccount();
       if (accs.isNotEmpty) {
-        // print("accs ==> $accs");
         currentAddress = accs.first;
         currentChain = await ethereum!.getChainId();
       }
@@ -78,7 +77,7 @@ class FlutterWeb3Controller extends GetxController {
     await wc.connect();
     if (wc.connected) {
       currentAddress = wc.accounts.first;
-      currentChain = 56;
+      currentChain = OPERATING_CHAIN;
       wcConnected = true;
       web3wc = Web3Provider.fromWalletConnect(wc);
     }

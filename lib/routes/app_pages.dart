@@ -26,7 +26,6 @@ class AppPages {
             binding: BindingsBuilder(() {
               Get.lazyPut(() => AddTokenController());
               Get.lazyPut(() => FlutterWeb3Controller());
-              Get.lazyPut(() => Web3DartController());
             }),
             bindings: [TokenBinding()],
           ),

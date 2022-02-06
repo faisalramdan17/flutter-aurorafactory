@@ -1,9 +1,5 @@
-import 'dart:convert';
-import 'dart:html';
-
 import 'package:aurorafactory/core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_web3/flutter_web3.dart';
 import 'package:get/get.dart';
 
@@ -29,25 +25,6 @@ class AddTokenController extends GetxController {
     super.onInit();
   }
 
-  // void addTokenContractOLD() async {
-  //   await XProgressHud.show();
-  //   String? result =
-  //       await Web3DartController.to.transaction("deployNewERC20Token", [
-  //     tokenNameCtrl.text,
-  //     tokenSymbolCtrl.text.toUpperCase(),
-  //     BigInt.parse(tokenDecimalCtrl.text),
-  //     BigInt.parse(tokenSupplyCtrl.text),
-  //   ]);
-  //   if (result != null) {
-  //     Get.rootDelegate.toNamed(Routes.DASBOARD);
-  //     // to close the drawer
-  //     Navigator.of(Get.context!).pop();
-  //   }
-  //   // if (onSucess != null) onSucess();
-  //   await XProgressHud.hide();
-  //   debugPrint("Result [addTokenContract()] = $result");
-  // }
-
   void addTokenContract() async {
     await XProgressHud.show();
     final abi = [
@@ -71,9 +48,6 @@ class AddTokenController extends GetxController {
         BigInt.parse(tokenSupplyCtrl.text),
       ],
     );
-
-    print("result = $result");
-
     await XProgressHud.hide();
 
     if (result != null) {
@@ -83,15 +57,4 @@ class AddTokenController extends GetxController {
     }
     update();
   }
-
-  // @override
-  // void onClose() {
-  //   // tokenNameCtrl.dispose();
-  //   // tokenSymbolCtrl.dispose();
-  //   // tokenDecimalCtrl.dispose();
-  //   // tokenSupplyCtrl.dispose();
-  //   // tokenContract = null;
-  //   super.onClose();
-  // }
-
 }

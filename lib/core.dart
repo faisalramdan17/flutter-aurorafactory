@@ -43,7 +43,6 @@ export 'app/controllers/token_controller.dart';
 export 'app/controllers/add_token_controller.dart';
 export 'app/controllers/intract_token_controller.dart';
 export 'app/controllers/menu_controller.dart';
-export 'app/controllers/web3dart_controller.dart';
 export 'app/controllers/flutter_web3_controller.dart';
 
 // Views Directories

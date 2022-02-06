@@ -52,7 +52,7 @@ dependencies:
 
   #flutter_web3 v2 is full Dart class and function wrapper for Ethereum object from provider, i.e. MetaMask. 
   # Ether.js package and Wallet Connect Provider package
-  flutter_web3: ^2.1.6
+  flutter_web3: ^2.1.8
 
   # A dart library that connects to interact with the Ethereum blockchain. 
   # It connects to an Ethereum node to send transactions, interact with smart contracts and much more!
@@ -91,10 +91,6 @@ dependencies:
   # as json with Bodymovin and renders them natively on mobile!
   lottie: ^1.2.1
 
-  # Load configuration at runtime from a .env file which can be used throughout the application.
-  flutter_dotenv: ^5.0.2
-  niku: ^1.1.3
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -125,8 +121,6 @@ flutter:
     - assets/logo/
     - assets/lottie/
     - assets/menu/
-    - src/artifacts/ERC20Token.json
-    - src/artifacts/ERC20Factory.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
