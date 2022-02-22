@@ -34,6 +34,10 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
+  # Package for Flutter apps that allows setting the web URL strategy with a single line of code. 
+  # To remove the leading hash (#) from the URL of your Flutter web app
+  url_strategy:
+
   # The Font Awesome Icon pack available as set of Flutter Icons.
   font_awesome_flutter: ^9.2.0
 

@@ -3,11 +3,16 @@ import 'package:flutter/material.dart';
 // import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 void main() async {
   // await dotenv.load(fileName: ".env");
   // await dotenv.load();
   // String foo = dotenv.get('VAR_NAME');
+
+  // Here we set the URL strategy for our web app.
+  // It is safe to call this function when running on mobile or desktop as well.
+  setPathUrlStrategy();
 
   runApp(const MyApp());
 }

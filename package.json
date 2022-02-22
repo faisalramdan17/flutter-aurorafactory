@@ -1,7 +1,7 @@
 {
   "name": "aurorafactory",
   "version": "1.0.0",
-  "description": "A new Flutter project by using GetX, Solidity & Aurora Network runing in Ethereum Chain.",
+  "description": "A new Contract Solidity project by using Aurora Network runing in Ethereum Chain.",
   "main": "truffle-config.js",
   "directories": {
     "lib": "lib",

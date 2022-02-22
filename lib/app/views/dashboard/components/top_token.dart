@@ -63,20 +63,23 @@ class TopTokenInfoCardGridView extends GetView<TokenController> {
     return controller.obx(
       (state) {
         List<Token> result = controller.getBigestSupply();
-        return GridView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: result.length > 4 ? 4 : result.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: crossAxisCount,
-            crossAxisSpacing: kDefaultPadding,
-            mainAxisSpacing: kDefaultPadding,
-            childAspectRatio: childAspectRatio,
-          ),
-          itemBuilder: (context, index) =>
-              TopTokenInfoCard(token: result[index]),
-        );
+        return result.isEmpty
+            ? Container()
+            : GridView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: result.length > 4 ? 4 : result.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: crossAxisCount,
+                  crossAxisSpacing: kDefaultPadding,
+                  mainAxisSpacing: kDefaultPadding,
+                  childAspectRatio: childAspectRatio,
+                ),
+                itemBuilder: (context, index) =>
+                    TopTokenInfoCard(token: result[index]),
+              );
       },
+      onEmpty: Container(),
       onLoading: GridView.builder(
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
